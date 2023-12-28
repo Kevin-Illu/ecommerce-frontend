@@ -1,0 +1,22 @@
+<section class="container w-full mx-auto my-0">
+  <div
+    *ngIf="productList.length > 0"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4"
+  >
+    <div
+      *ngFor="let p of productList"
+      class="w-full h-96 2xl:h-[32rem] flex flex-col"
+    >
+      <div class="bg-stone-100 h-[80%] w-full"></div>
+      <div class="py-2">
+        <p class="text-stone-900 text-sm capitalize">
+          {{ p.productName }}
+        </p>
+        <div class="flex gap-2 items-center text-stone-900 text-sm capitalize">
+          <p>${{ p.MSRP }}</p>
+          <p>{{ p.productLine }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
