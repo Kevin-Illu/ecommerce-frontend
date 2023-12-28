@@ -12,12 +12,14 @@ import { Product } from './product';
 })
 export class ProductsPage implements OnInit {
   public productList: Product[] = [];
+  public results: number = 0;
 
   constructor(private service: ProductsService) {}
 
   ngOnInit() {
     this.service.getProducts().subscribe((response: Product[]) => {
       this.productList = response;
+      this.results = response.length;
     });
   }
 }

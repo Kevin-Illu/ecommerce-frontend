@@ -1,1 +1,55 @@
-<p>product-detail works!</p>
+<div class="text-stone-600 py-4">
+  <p class="flex gap-2">
+    <a href="/products">Products</a>
+    <span>.</span>
+    <span>{{ product.productLine }}</span>
+    <span>.</span>
+    <span class="text-stone-900">{{ product.productName }}</span>
+  </p>
+</div>
+
+<div *ngIf="product">
+  <div class="flex flex-col lg:flex-row gap-8">
+    <div class="w-6/12 pr-8">
+      <h1 class="text-6xl 2xl:text-7xl font-extrabold uppercase">
+        {{ product.productName }}
+      </h1>
+    </div>
+    <div class="w-6/12">
+      <ul class="w-8/12">
+        <li class="pb-4">
+          <p>${{ product.MSRP }}</p>
+        </li>
+        <li class="pb-4">
+          <p>{{ product.productDescription }}</p>
+        </li>
+        <li class="pb-4">
+          <p class="text-stone-900 font-bold">Scale</p>
+          <p>{{ product.productScale }}</p>
+        </li>
+        <li class="pb-4">
+          <p class="text-stone-900 font-bold">Vendor</p>
+          <p>{{ product.productVendor }}</p>
+        </li>
+        <li class="pb-4">
+          <p class="text-stone-900 font-bold">Line</p>
+          <p>{{ product.productLine }}</p>
+        </li>
+      </ul>
+
+      <div class="py-2 w-8/12">
+        <button
+          class="w-full bg-stone-900 text-stone-50 py-2 px-4 hover:bg-stone-800 rounded-sm flex gap-4 justify-center items-center"
+        >
+          <p>Add to cart</p>
+          <span>-</span>
+          <p>${{ product.MSRP }}</p>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!product">
+  <p>product not found</p>
+  <a href="/products">go back</a>
+</div>

@@ -1,4 +1,9 @@
 <section class="container w-full mx-auto my-0">
+  <div class="pb-8">
+    <p class="text-stone-600">
+      Results: [ <span class="text-stone-900">{{ results }}</span> ]
+    </p>
+  </div>
   <div
     *ngIf="productList.length > 0"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4"
