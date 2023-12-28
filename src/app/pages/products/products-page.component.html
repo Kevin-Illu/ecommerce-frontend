@@ -3,7 +3,8 @@
     *ngIf="productList.length > 0"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4"
   >
-    <div
+    <a
+      routerLink="/product/{{ p.productCode }}"
       *ngFor="let p of productList"
       class="w-full h-96 2xl:h-[32rem] flex flex-col"
     >
@@ -17,6 +18,6 @@
           <p>{{ p.productLine }}</p>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
