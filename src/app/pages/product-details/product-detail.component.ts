@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products/products.service';
-import { Product } from '../products/product';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Product, Products } from 'src/app/models/products.model';
 
 @Component({
   standalone: true,
@@ -23,7 +23,7 @@ export class ProductDetailPage implements OnInit {
       const productCode = params['code'];
       this.service
         .getProductDetails(productCode)
-        .subscribe((product: Product[]) => {
+        .subscribe((product: Products) => {
           this.product = product[0];
         });
     });

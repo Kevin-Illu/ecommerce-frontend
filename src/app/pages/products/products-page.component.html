@@ -5,15 +5,24 @@
     </p>
   </div>
   <div
-    *ngIf="productList.length > 0"
+    *ngIf="productsList.length > 0"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4"
   >
+    <!-- product item -->
     <a
       routerLink="/product/{{ p.productCode }}"
-      *ngFor="let p of productList"
+      *ngFor="let p of productsList"
       class="w-full h-96 2xl:h-[32rem] flex flex-col"
     >
-      <div class="bg-stone-100 h-[80%] w-full"></div>
+      <div
+        class="product-image bg-stone-100 h-[90%] w-full px-4 py-8 flex flex-col-reverse"
+      >
+        <button
+          class="btn-quick-add hidden w-full py-4 bg-stone-50 rounded-sm uppercase border-solid border-[1px] border-stone-200"
+        >
+          quick add
+        </button>
+      </div>
       <div class="py-2">
         <p class="text-stone-900 text-sm capitalize">
           {{ p.productName }}
@@ -24,5 +33,6 @@
         </div>
       </div>
     </a>
+    <!-- product item end -->
   </div>
 </section>

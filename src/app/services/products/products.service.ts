@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/pages/products/product';
+import { Products } from 'src/app/models/products.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +10,12 @@ export class ProductsService {
   private baseUrl = 'https://bmo-store.000webhostapp.com/apps/api/public';
   constructor(private httpClient: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${this.baseUrl}/products`);
+  getProducts(): Observable<Products> {
+    return this.httpClient.get<Products>(`${this.baseUrl}/products`);
   }
 
-  getProductDetails(productCode: string): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(
+  getProductDetails(productCode: string): Observable<Products> {
+    return this.httpClient.get<Products>(
       `${this.baseUrl}/product/${productCode}`,
     );
   }

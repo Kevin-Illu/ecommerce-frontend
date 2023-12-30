@@ -9,3 +9,5 @@ export interface Product {
   productLine: string;
   MSRP: string;
 }
+
+export type Products = Array<Product>;
