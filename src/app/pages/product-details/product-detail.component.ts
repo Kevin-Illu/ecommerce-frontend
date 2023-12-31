@@ -12,7 +12,8 @@ import { Product, Products } from 'src/app/models/products.model';
   imports: [NgIf],
 })
 export class ProductDetailPage implements OnInit {
-  public product!: Product;
+  public product: Product | undefined;
+  public isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,10 +22,12 @@ export class ProductDetailPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       const productCode = params['code'];
+
       this.service
         .getProductDetails(productCode)
         .subscribe((product: Products) => {
           this.product = product[0];
+          this.isLoading = false;
         });
     });
   }
