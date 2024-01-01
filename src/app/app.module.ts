@@ -13,6 +13,7 @@ import { LayoutComponent } from './shared/layout/layout.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { BagService } from './services/bag/bag.service';
+import { BagComponent } from './components/bag/bag.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BagService } from './services/bag/bag.service';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
+    BagComponent,
   ],
   providers: [BagService],
   bootstrap: [AppComponent],

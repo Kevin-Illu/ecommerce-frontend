@@ -4,12 +4,10 @@
       <p>BMO Store</p>
     </div>
     <div>
-      <button>
-        <p>
-          Bag
-          <span *ngIf="productsInBag > 0">[{{ productsInBag }}]</span>
-        </p>
-      </button>
+      <a routerLink="/bag">
+        Bag
+        <span *ngIf="productsInBag > 0">[{{ productsInBag }}]</span>
+      </a>
     </div>
   </div>
 </header>

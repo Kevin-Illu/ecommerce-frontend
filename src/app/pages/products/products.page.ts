@@ -8,8 +8,8 @@ import { BagService } from 'src/app/services/bag/bag.service';
 @Component({
   standalone: true,
   selector: 'products-page',
-  styleUrls: ['./products-page.component.css'],
-  templateUrl: './products-page.component.html',
+  styleUrls: ['./products.page.css'],
+  templateUrl: './products.page.html',
   imports: [NgFor, NgIf, RouterModule],
 })
 export class ProductsPage implements OnInit {

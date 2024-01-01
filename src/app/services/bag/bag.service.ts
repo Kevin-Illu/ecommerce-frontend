@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from 'src/app/models/products.model';
-import { Bag } from 'src/app/models/bag.model';
+import { Bag, ProductInBag } from 'src/app/models/bag.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,12 @@ export class BagService {
 
   private loadInitialBagState(): Bag {
     const storedBag = localStorage.getItem('bag');
-    return storedBag ? JSON.parse(storedBag) : { products: {} };
+    const defaultBag: Bag = {
+      total: 0,
+      subtotal: 0,
+      products: {},
+    };
+    return storedBag ? JSON.parse(storedBag) : defaultBag;
   }
 
   private saveBagToLocalStorage(bag: Bag): void {
@@ -31,9 +36,13 @@ export class BagService {
       },
     };
 
-    const updatedBag = { ...currentBag, products: updatedProducts };
+    const updatedBag: Bag = {
+      ...currentBag,
+      products: updatedProducts,
+    };
     this.bagSubject.next(updatedBag);
     this.saveBagToLocalStorage(updatedBag);
+    this.updateTotal();
   }
 
   removeFromBag(productCode: string): void {
@@ -42,6 +51,35 @@ export class BagService {
       currentBag.products;
 
     const updatedBag = { ...currentBag, products: updatedProducts };
+    this.bagSubject.next(updatedBag);
+    this.saveBagToLocalStorage(updatedBag);
+    this.updateTotal();
+  }
+
+  getProductsInBag(): ProductInBag[] {
+    const currentBag = this.bagSubject.value;
+    return Object.values(currentBag.products);
+  }
+
+  private calculateTotal(bag: Bag): number {
+    let total: number = 0;
+
+    Object.values(bag.products).forEach((product) => {
+      total += parseFloat(product.MSRP) * product.quantity;
+    });
+
+    return total;
+  }
+
+  private updateTotal(): void {
+    const currentBag = this.bagSubject.value;
+    const total = this.calculateTotal(currentBag);
+
+    const updatedBag: Bag = {
+      ...currentBag,
+      total: total,
+    };
+
     this.bagSubject.next(updatedBag);
     this.saveBagToLocalStorage(updatedBag);
   }
