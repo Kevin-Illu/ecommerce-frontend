@@ -12,12 +12,27 @@ export class BagService {
 
   private loadInitialBagState(): Bag {
     const storedBag = localStorage.getItem('bag');
-    const defaultBag: Bag = {
+    const defaultBag = this.getDefaultBag();
+    const parsedBag = storedBag
+      ? this.parseAndCalculateTotal(storedBag)
+      : defaultBag;
+
+    return parsedBag;
+  }
+
+  private getDefaultBag(): Bag {
+    return {
       total: 0,
       subtotal: 0,
       products: {},
     };
-    return storedBag ? JSON.parse(storedBag) : defaultBag;
+  }
+
+  private parseAndCalculateTotal(storedBag: string): Bag {
+    const parsedBag: Bag = JSON.parse(storedBag);
+    parsedBag.total = this.calculateTotal(parsedBag);
+
+    return parsedBag;
   }
 
   private saveBagToLocalStorage(bag: Bag): void {
