@@ -12,15 +12,16 @@
     <a
       routerLink="/product/{{ p.productCode }}"
       *ngFor="let p of productsList"
-      class="w-full h-96 2xl:h-[32rem] flex flex-col"
+      class="z-10 w-full h-96 2xl:h-[32rem] flex flex-col"
     >
       <div
         class="product-image bg-stone-100 h-[90%] w-full px-4 py-8 flex flex-col-reverse"
       >
         <button
-          class="btn-quick-add hidden w-full py-4 bg-stone-50 rounded-sm uppercase border-solid border-[1px] border-stone-200"
+          (click)="quickAdd($event, p)"
+          class="z-40 btn-quick-add hidden w-full py-4 bg-stone-50 rounded-sm uppercase border-solid border-[1px] border-stone-200"
         >
-          quick add
+          {{ uiText.addToBagBtn.text }}
         </button>
       </div>
       <div class="py-2">
