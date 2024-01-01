@@ -12,6 +12,7 @@ import { MaterialModule } from './modules/material.module';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { BagService } from './services/bag/bag.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { HeaderComponent } from './shared/header/header.component';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [BagService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
