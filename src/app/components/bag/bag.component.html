@@ -1,36 +1,43 @@
 <div
-  class="z-50 lg:fixed bg-stone-900/40 w-screen h-screen flex flex-row-reverse"
+  (click)="closeBagSidebar()"
+  *ngIf="ui.isBagOpen"
+  class="transition-all z-50 fixed bg-stone-900/40 w-screen h-screen flex flex-row-reverse"
 >
   <div
-    class="w-[42vw] max-w-[48vw] bg-stone-50 h-full flex flex-col px-4 justify-between items-start"
+    (click)="$event.stopPropagation()"
+    [ngClass]="{ open: ui.isBagOpen, closed: !ui.isBagOpen }"
+    class="transition-all delay-300 z-[60] lg:w-[42vw] lg:max-w-[48vw] bg-stone-50 h-full flex flex-col px-4 justify-between items-start overflow-y-auto"
   >
     <div class="border-b-stone-200 border-b-solid border-b-[1px] w-full">
-      <button class="flex gap-2 items-center">
+      <button (click)="closeBagSidebar()" class="flex gap-2 items-center">
         <mat-icon>chevron_left</mat-icon>
         <p class="capitalize py-4">keep shopping</p>
       </button>
     </div>
 
     <!-- ----- PRODUCTS IN BAG ----  -->
-    <div *ngIf="products.length > 0" class="h-[60%] flex-1 w-full">
+    <div
+      *ngIf="products.length > 0"
+      class="h-[60%] flex-1 w-full flex flex-col"
+    >
       <div class="py-4 flex justify-between items-center">
         <p class="text-2xl capitalize font-bold">bag</p>
         <p class="text-stone-400">{{ products.length }} items</p>
       </div>
-      <div
-        class="w-full h-full overflow-y-auto overflow-x-hidden flex flex-col gap-8"
-      >
+      <div class="w-full h-full overflow-y-auto flex flex-col">
         <div
           *ngFor="let p of products"
-          class="grid grid-cols-8 text-stone-900 py-2"
+          class="grid grid-cols-8 text-stone-900 py-2 gap-8 lg:gap-4"
         >
-          <div class="col-span-4">
+          <div class="col-span-3 lg:col-span-4">
             <p class="capitalize">
               {{ p.productName }}
             </p>
             <p class="text-stone-400">{{ p.productCode }}</p>
           </div>
-          <div class="flex justify-center items-center text-sm">
+          <div
+            class="col-span-2 lg:col-span-1 flex justify-center items-center text-sm"
+          >
             <div class="flex items-center justify-between gap-4 font-bold">
               <button [ngClass]="{ 'text-stone-400': p.quantity < 2 }">
                 <mat-icon>remove</mat-icon>
@@ -62,11 +69,11 @@
       <div class="text-stone-400 capitalize">
         <div class="flex justify-between items-center pb-2">
           <p>items subtotal</p>
-          <p>{{ bag.subtotal }}</p>
+          <p>${{ bag.subtotal }}</p>
         </div>
         <div class="flex justify-between items-center pb-2">
           <p>shipping</p>
-          <p>{{ bag.shipping }}</p>
+          <p>${{ bag.shipping }}</p>
         </div>
         <div class="flex justify-between items-center pb-2 text-stone-900">
           <p>estimated total</p>
@@ -83,8 +90,8 @@
     </div>
     <!-- ------- END BAG INFORMATION ----- -->
 
-    <!-- IF THERE ARE PRODUCTS -->
-    <div class="w-full h-full">
+    <!-- IF THERE ARE NO PRODUCTS -->
+    <div *ngIf="products.length < 1" class="w-full h-full">
       <!-- TODO: show new arrivals -->
       <div class="py-4">
         <p class="text-4xl uppercase font-bold">new arrivals</p>

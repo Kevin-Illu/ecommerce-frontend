@@ -14,4 +14,8 @@ export class HeaderComponent implements OnInit {
       this.productsInBag = Object.keys(bag.products).length;
     });
   }
+
+  openSidebar(): void {
+    this.bagService.openBagSidebar();
+  }
 }

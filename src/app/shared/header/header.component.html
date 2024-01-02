@@ -6,10 +6,10 @@
       <p>BMO Store</p>
     </div>
     <div>
-      <a routerLink="/bag">
+      <button (click)="openSidebar()">
         Bag
         <span *ngIf="productsInBag > 0">[{{ productsInBag }}]</span>
-      </a>
+      </button>
     </div>
   </div>
 </header>

@@ -10,6 +10,12 @@ export class BagService {
   private bagSubject = new BehaviorSubject<Bag>(this.loadInitialBagState());
   bag$: Observable<Bag> = this.bagSubject.asObservable();
 
+  // UI
+  private uiSubject = new BehaviorSubject<any>({
+    isBagOpen: false,
+  });
+  ui$: Observable<any> = this.uiSubject.asObservable();
+
   private loadInitialBagState(): Bag {
     const storedBag = localStorage.getItem('bag');
     const defaultBag = this.getDefaultBag();
@@ -86,7 +92,6 @@ export class BagService {
     const subtotal = this.calculateSubtotal(bag);
     const shipping = this.calculateShipping(bag);
     const total = subtotal + shipping;
-    console.log(total);
 
     const updatedBag: Bag = {
       ...bag,
@@ -97,5 +102,17 @@ export class BagService {
 
     this.bagSubject.next(updatedBag);
     this.saveBagToLocalStorage(updatedBag);
+  }
+
+  closeBagSidebar(): void {
+    const updatedUI = this.uiSubject.value;
+    updatedUI.isBagOpen = false;
+    this.uiSubject.next(updatedUI);
+  }
+
+  openBagSidebar(): void {
+    const updatedUI = this.uiSubject.value;
+    updatedUI.isBagOpen = true;
+    this.uiSubject.next(updatedUI);
   }
 }
