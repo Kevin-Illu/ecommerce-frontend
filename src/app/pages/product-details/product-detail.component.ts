@@ -3,6 +3,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { Product, Products } from 'src/app/models/products.model';
+import { BagService } from 'src/app/services/bag/bag.service';
 
 @Component({
   standalone: true,
@@ -18,6 +19,7 @@ export class ProductDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: ProductsService,
+    private bagService: BagService,
   ) {}
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -30,5 +32,9 @@ export class ProductDetailPage implements OnInit {
           this.isLoading = false;
         });
     });
+  }
+
+  addToBag(p: Product) {
+    this.bagService.addToBag(p);
   }
 }

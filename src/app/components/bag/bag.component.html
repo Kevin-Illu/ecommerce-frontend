@@ -39,11 +39,15 @@
             class="col-span-2 lg:col-span-1 flex justify-center items-center text-sm"
           >
             <div class="flex items-center justify-between gap-4 font-bold">
-              <button [ngClass]="{ 'text-stone-400': p.quantity < 2 }">
+              <button
+                [disabled]="p.quantity < 2"
+                (click)="decreaseProductQuantity(p.productCode)"
+                [ngClass]="{ 'text-stone-400': p.quantity < 2 }"
+              >
                 <mat-icon>remove</mat-icon>
               </button>
               <p class="text-sm">{{ p.quantity }}</p>
-              <button>
+              <button (click)="increaseProductQuantity(p.productCode)">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
@@ -52,7 +56,7 @@
             <p>${{ p.MSRP }}</p>
           </div>
           <div class="flex justify-center items-center">
-            <button>
+            <button (click)="removeFromBag(p.productCode)">
               <mat-icon>clear</mat-icon>
             </button>
           </div>

@@ -87,17 +87,52 @@ export class BagService {
     return shippingPrice;
   }
 
+  modifyProductQuantity({
+    productCode,
+    increase = true,
+  }: {
+    productCode: string;
+    increase?: boolean;
+  }): void {
+    const currentBag = this.bagSubject.value;
+    const existingProduct = currentBag.products[productCode];
+
+    let updatedQuantity = existingProduct.quantity;
+
+    if (increase) {
+      updatedQuantity += 1;
+    } else {
+      updatedQuantity = Math.max(1, updatedQuantity - 1);
+    }
+
+    const updatedProducts = {
+      ...currentBag.products,
+      [productCode]: {
+        ...existingProduct,
+        quantity: updatedQuantity,
+      },
+    };
+
+    const updatedBag: Bag = {
+      ...currentBag,
+      products: updatedProducts,
+    };
+
+    this.bagSubject.next(updatedBag);
+    this.updateBag();
+  }
+
   private updateBag(): void {
     const bag = this.bagSubject.value;
-    const subtotal = this.calculateSubtotal(bag);
-    const shipping = this.calculateShipping(bag);
-    const total = subtotal + shipping;
+    const subtotal = parseFloat(this.calculateSubtotal(bag).toFixed(2));
+    const shipping = parseFloat(this.calculateShipping(bag).toFixed(2));
+    const total = (subtotal + shipping).toFixed(2);
 
     const updatedBag: Bag = {
       ...bag,
       subtotal,
       shipping,
-      total,
+      total: parseFloat(total),
     };
 
     this.bagSubject.next(updatedBag);

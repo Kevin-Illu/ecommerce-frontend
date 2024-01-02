@@ -39,6 +39,10 @@ export class BagComponent implements OnInit {
     if (this.bagSubscription) {
       this.bagSubscription.unsubscribe();
     }
+
+    if (this.uiSubscription) {
+      this.uiSubscription.unsubscribe();
+    }
   }
 
   closeBagSidebar(): void {
@@ -47,5 +51,17 @@ export class BagComponent implements OnInit {
 
   openBagSidebar(): void {
     this.service.toggleBagSidebar(true);
+  }
+
+  increaseProductQuantity(productCode: string): void {
+    this.service.modifyProductQuantity({ productCode });
+  }
+
+  decreaseProductQuantity(productCode: string): void {
+    this.service.modifyProductQuantity({ productCode, increase: false });
+  }
+
+  removeFromBag(productCode: string): void {
+    this.service.removeFromBag(productCode);
   }
 }
