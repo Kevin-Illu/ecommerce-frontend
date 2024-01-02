@@ -13,26 +13,18 @@ export class BagService {
   private loadInitialBagState(): Bag {
     const storedBag = localStorage.getItem('bag');
     const defaultBag = this.getDefaultBag();
-    const parsedBag = storedBag
-      ? this.parseAndCalculateTotal(storedBag)
-      : defaultBag;
+    const parsedBag = storedBag ? JSON.parse(storedBag) : defaultBag;
 
     return parsedBag;
   }
 
   private getDefaultBag(): Bag {
     return {
-      total: 0,
       subtotal: 0,
+      shipping: 0,
+      total: 0,
       products: {},
     };
-  }
-
-  private parseAndCalculateTotal(storedBag: string): Bag {
-    const parsedBag: Bag = JSON.parse(storedBag);
-    parsedBag.total = this.calculateTotal(parsedBag);
-
-    return parsedBag;
   }
 
   private saveBagToLocalStorage(bag: Bag): void {
@@ -56,8 +48,7 @@ export class BagService {
       products: updatedProducts,
     };
     this.bagSubject.next(updatedBag);
-    this.saveBagToLocalStorage(updatedBag);
-    this.updateTotal();
+    this.updateBag();
   }
 
   removeFromBag(productCode: string): void {
@@ -67,8 +58,7 @@ export class BagService {
 
     const updatedBag = { ...currentBag, products: updatedProducts };
     this.bagSubject.next(updatedBag);
-    this.saveBagToLocalStorage(updatedBag);
-    this.updateTotal();
+    this.updateBag();
   }
 
   getProductsInBag(): ProductInBag[] {
@@ -76,23 +66,33 @@ export class BagService {
     return Object.values(currentBag.products);
   }
 
-  private calculateTotal(bag: Bag): number {
-    let total: number = 0;
+  private calculateSubtotal(bag: Bag): number {
+    let subtotal = 0;
 
     Object.values(bag.products).forEach((product) => {
-      total += parseFloat(product.MSRP) * product.quantity;
+      subtotal += parseFloat(product.MSRP) * product.quantity;
     });
 
-    return total;
+    return subtotal;
   }
 
-  private updateTotal(): void {
-    const currentBag = this.bagSubject.value;
-    const total = this.calculateTotal(currentBag);
+  private calculateShipping(bag: Bag): number {
+    let shippingPrice: number = 50; // do something extrange to calculate this xD
+    return shippingPrice;
+  }
+
+  private updateBag(): void {
+    const bag = this.bagSubject.value;
+    const subtotal = this.calculateSubtotal(bag);
+    const shipping = this.calculateShipping(bag);
+    const total = subtotal + shipping;
+    console.log(total);
 
     const updatedBag: Bag = {
-      ...currentBag,
-      total: total,
+      ...bag,
+      subtotal,
+      shipping,
+      total,
     };
 
     this.bagSubject.next(updatedBag);

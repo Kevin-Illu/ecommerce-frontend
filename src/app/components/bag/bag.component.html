@@ -10,7 +10,9 @@
         <p class="capitalize py-4">keep shopping</p>
       </button>
     </div>
-    <div class="h-[60%] flex-1 w-full">
+
+    <!-- ----- PRODUCTS IN BAG ----  -->
+    <div *ngIf="products.length > 0" class="h-[60%] flex-1 w-full">
       <div class="py-4 flex justify-between items-center">
         <p class="text-2xl capitalize font-bold">bag</p>
         <p class="text-stone-400">{{ products.length }} items</p>
@@ -50,15 +52,21 @@
         </div>
       </div>
     </div>
+    <!-- -------- END PRODUCTS IN BAG -------- -->
+
+    <!-- -------- BAG INFORMATION ------- -->
     <div
+      *ngIf="products.length > 0"
       class="border-t-stone-200 bg-stone-50 border-t-solid border-t-[1px] flex flex-col justify-end h-auto py-4 w-full"
     >
       <div class="text-stone-400 capitalize">
         <div class="flex justify-between items-center pb-2">
           <p>items subtotal</p>
+          <p>{{ bag.subtotal }}</p>
         </div>
         <div class="flex justify-between items-center pb-2">
           <p>shipping</p>
+          <p>{{ bag.shipping }}</p>
         </div>
         <div class="flex justify-between items-center pb-2 text-stone-900">
           <p>estimated total</p>
@@ -71,6 +79,15 @@
         >
           checkout
         </button>
+      </div>
+    </div>
+    <!-- ------- END BAG INFORMATION ----- -->
+
+    <!-- IF THERE ARE PRODUCTS -->
+    <div class="w-full h-full">
+      <!-- TODO: show new arrivals -->
+      <div class="py-4">
+        <p class="text-4xl uppercase font-bold">new arrivals</p>
       </div>
     </div>
   </div>

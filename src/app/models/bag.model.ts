@@ -6,6 +6,7 @@ export interface ProductInBag extends Product {
 
 export interface Bag {
   subtotal: number;
+  shipping: number;
   total: number;
   products: {
     [id: string]: ProductInBag;
