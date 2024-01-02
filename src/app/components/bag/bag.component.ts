@@ -42,10 +42,10 @@ export class BagComponent implements OnInit {
   }
 
   closeBagSidebar(): void {
-    this.service.closeBagSidebar();
+    this.service.toggleBagSidebar(false);
   }
 
   openBagSidebar(): void {
-    this.service.openBagSidebar();
+    this.service.toggleBagSidebar(true);
   }
 }

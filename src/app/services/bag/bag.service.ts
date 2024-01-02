@@ -104,15 +104,9 @@ export class BagService {
     this.saveBagToLocalStorage(updatedBag);
   }
 
-  closeBagSidebar(): void {
-    const updatedUI = this.uiSubject.value;
-    updatedUI.isBagOpen = false;
-    this.uiSubject.next(updatedUI);
-  }
-
-  openBagSidebar(): void {
-    const updatedUI = this.uiSubject.value;
-    updatedUI.isBagOpen = true;
-    this.uiSubject.next(updatedUI);
+  toggleBagSidebar(isOpen: boolean): void {
+    const updatedUi = this.uiSubject.value;
+    updatedUi.isBagOpen = isOpen;
+    this.uiSubject.next(updatedUi);
   }
 }
