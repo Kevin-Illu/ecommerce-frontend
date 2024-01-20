@@ -1,12 +1,15 @@
 <div
   (click)="closeBagSidebar()"
-  *ngIf="ui.isBagOpen"
-  class="transition-all z-50 fixed bg-stone-900/40 w-screen h-screen flex flex-row-reverse"
+  class="bag-container-close overflow-hidden transition-all z-50 fixed w-screen h-screen flex flex-row-reverse pointer-events-none"
+  [ngClass]="{
+    'bag-container-open': ui.isBagOpen,
+    'bag-container-close': !ui.isBagOpen
+  }"
 >
   <div
     (click)="$event.stopPropagation()"
-    [ngClass]="{ open: ui.isBagOpen, closed: !ui.isBagOpen }"
-    class="transition-all delay-300 z-[60] lg:w-[42vw] lg:max-w-[48vw] bg-stone-50 h-full flex flex-col px-4 justify-between items-start overflow-y-auto"
+    [ngClass]="{ open: ui.isBagOpen, close: !ui.isBagOpen }"
+    class="translate-x-[100%] delay-300 z-[100] pointer-events-auto lg:w-[42vw] lg:max-w-[48vw] bg-stone-50 h-full flex flex-col px-4 justify-between items-start overflow-y-auto"
   >
     <div class="border-b-stone-200 border-b-solid border-b-[1px] w-full">
       <button (click)="closeBagSidebar()" class="flex gap-2 items-center">

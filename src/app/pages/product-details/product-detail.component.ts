@@ -36,5 +36,6 @@ export class ProductDetailPage implements OnInit {
 
   addToBag(p: Product) {
     this.bagService.addToBag(p);
+    this.bagService.toggleBagSidebar(true);
   }
 }

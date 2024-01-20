@@ -1,33 +1,22 @@
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-:host {
-  display: block;
-}
-
 .open {
-  animation: slideIn 0.3s ease-out forwards;
+  transform: translateX(0);
+  transition: ease-out 0.3s;
 }
 
-.closed {
-  animation: slideOut 0.3s ease-in-out forwards;
+.close {
+  transform: translateX(100%);
+  transition: ease-in-out 0.3s;
 }
 
-.sidebar-transition {
-  transition: all 0.3s ease-in-out;
+.bag-container-open {
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: all;
+  backdrop-filter: blur(4px);
+  pointer-events: all;
+}
+
+.bag-container-close {
+  transition: all;
+  background: transparent;
+  pointer-events: none;
 }
