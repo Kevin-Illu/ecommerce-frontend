@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { Product, Products } from 'src/app/models/products.model';
+import { Product } from 'src/app/models/products.model';
 import { BagService } from 'src/app/services/bag/bag.service';
 
 @Component({
@@ -20,15 +20,15 @@ export class ProductDetailPage implements OnInit {
     private route: ActivatedRoute,
     private service: ProductsService,
     private bagService: BagService,
-  ) {}
+  ) { }
   ngOnInit() {
     this.route.params.subscribe((params) => {
       const productCode = params['code'];
 
       this.service
         .getProductDetails(productCode)
-        .subscribe((product: Products) => {
-          this.product = product[0];
+        .then((products) => {
+          this.product = Array.isArray(products) ? products[0] : undefined;
           this.isLoading = false;
         });
     });

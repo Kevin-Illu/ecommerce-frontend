@@ -13,8 +13,8 @@ import { BagService } from 'src/app/services/bag/bag.service';
   imports: [NgFor, NgIf, RouterModule],
 })
 export class ProductsPage implements OnInit {
-  public productsList: Products = [];
-  public results: number = 0;
+  public productsList: Products | undefined = [];
+  public results: number | undefined = 0;
   public uiText = {
     addToBagBtn: {
       text: 'quick add',
@@ -24,13 +24,14 @@ export class ProductsPage implements OnInit {
   constructor(
     private service: ProductsService,
     private bagService: BagService,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.service.getProducts().subscribe((response: Products) => {
-      this.productsList = response;
-      this.results = response.length;
-    });
+    this.service.getProducts()
+      .then((response) => {
+        this.productsList = response;
+        this.results = response?.length;
+      })
   }
 
   quickAdd(e: Event, product: Product) {

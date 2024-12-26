@@ -5,7 +5,7 @@
     </p>
   </div>
   <div
-    *ngIf="productsList.length > 0"
+    *ngIf="(productsList?.length || 0) > 0"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4"
   >
     <!-- product item -->
